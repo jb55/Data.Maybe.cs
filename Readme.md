@@ -103,3 +103,56 @@ string val = maybeString.FromMaybe();
 
 Nullable<T> only works on value types. Maybe<T> works on both value and
 reference types. It also has LINQ support.
+
+## More interesting examples
+
+### Getting the first element of a list
+
+```cs
+public static Maybe<T> Head<T>(this IEnumerable<T> xs) {
+  foreach(var x in xs)
+    return x;
+  return Maybe<T>.Nothing;
+}
+```
+
+Now lets get a bunch of heads!
+
+```cs
+var result = from h1 in list1.Head()
+             from h2 in list2.Head()
+             from h3 in list3.Head()
+             return ConsumeHeads(h1, h2, h3);
+```
+
+ConsumeHeads will never run unless all Head() calls return valid results.
+
+### Lookups
+
+Here's a function for getting a value out of a dictionary:
+
+```cs
+public static Maybe<T2> Lookup<T, T2>(this IDictionary<T, T2> d) {
+  var has = d.TryGetValue(key, out outTest);
+  if (!has) return Maybe<T2>.Nothing;
+  return outTest.ToMaybe();
+}
+```
+
+### Parsing
+
+```cs
+public static Maybe<int> ParseInt(string s) {
+  int o;
+  return int.TryParse(s, out o) ? o.ToMaybe() : Maybe<int>.Nothing;
+}
+```
+
+### Lookup + Parsing!
+
+```csv
+var parsedFromDict = from val in d.Lookup("key")
+                     from parsedVal in ParseInt(val)
+                     select val;
+```
+
