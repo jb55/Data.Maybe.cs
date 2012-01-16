@@ -125,7 +125,7 @@ Now lets get a bunch of heads!
 var result = from h1 in list1.Head()
              from h2 in list2.Head()
              from h3 in list3.Head()
-             return ConsumeHeads(h1, h2, h3);
+             select ConsumeHeads(h1, h2, h3);
 ```
 
 ConsumeHeads will never run unless all Head() calls return valid results.
