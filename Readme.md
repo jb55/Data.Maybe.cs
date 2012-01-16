@@ -132,7 +132,7 @@ ConsumeHeads will never run unless all Head() calls return valid results.
 Here's a function for getting a value out of a dictionary:
 
 ```cs
-public static Maybe<T2> Lookup<T, T2>(this IDictionary<T, T2> d) {
+public static Maybe<T2> Lookup<T, T2>(this IDictionary<T, T2> d, T key) {
   var has = d.TryGetValue(key, out outTest);
   if (!has) return Maybe<T2>.Nothing;
   return outTest.ToMaybe();
