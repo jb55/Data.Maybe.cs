@@ -51,11 +51,11 @@ optional short-circuit evaluation with lambdas:
 Maybe<string> name1 = Maybe<string>.Nothing;
 Maybe<string> name2 = "Some Name".ToMaybe();
 
-var goodNameLazy = name1.Or(() => name2);
+Maybe<string> goodNameLazy = name1.Or(() => name2);
 // this works too:
-var goodName = name1.Or(name2);
+Maybe<string> goodName = name1.Or(name2);
 // and this:
-var goodName = name1.Or("goodName");
+Maybe<string> goodName = name1.Or("goodName");
 ```
 
 You can also convert value-kinded maybe types to Nullable<T>s:
