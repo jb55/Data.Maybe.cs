@@ -105,7 +105,7 @@ string val = maybeString.FromMaybe();
 ### Why not use Nullable<T> instead?
 
 Nullable<T> only works on value types. Maybe<T> works on both value and
-reference types. It also has LINQ support.
+reference types. It also has LINQ support. 
 
 ## More interesting examples
 
@@ -114,7 +114,7 @@ reference types. It also has LINQ support.
 ```cs
 public static Maybe<T> Head<T>(this IEnumerable<T> xs) {
   foreach(var x in xs)
-    return x;
+    return x.ToMaybe();
   return Maybe<T>.Nothing;
 }
 ```
