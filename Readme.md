@@ -19,6 +19,9 @@ if (concat.IsNothing())
   Console.WriteLine("One of the strings was bad, could not concat");
 ```
 
+LINQ will terminate the computation if there is a Nothing at any point in the
+computation.
+
 ### Running a computation with a maybe type:
 
 ```cs
