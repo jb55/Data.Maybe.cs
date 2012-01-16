@@ -94,6 +94,7 @@ try {
 ```
 
 Or, finally, you can just get the default value for that type:
+
 ```cs
 string val = maybeString.FromMaybe();
 ```
