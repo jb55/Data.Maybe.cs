@@ -153,6 +153,6 @@ public static Maybe<int> ParseInt(string s) {
 ```cs
 var parsedFromDict = from val in d.Lookup("key")
                      from parsedVal in ParseInt(val)
-                     select val;
+                     select parsedVal;
 ```
 
