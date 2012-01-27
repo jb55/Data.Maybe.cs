@@ -105,7 +105,7 @@ namespace Data.Maybe
         }
 
         public static void RunWhenTrue(this Maybe<bool> m, Action fn) {
-            if (m.HasValue && m.Value) 
+            if (m.HasValue && m.Value)
                 fn();
         }
 
@@ -147,8 +147,23 @@ namespace Data.Maybe
             return b;
         }
 
+        public static void Run<T, T2, T3>(this Maybe<T> m, Maybe<T2> m2, Maybe<T3> m3, Action<T, T2, T3> fn) {
+            if (m.IsSomething() && m2.IsSomething() && m3.IsSomething())
+                fn(m.Value, m2.Value, m3.Value);
+        }
+
+        public static void Run<T, T2>(this Maybe<T> m, Maybe<T2> m2, Action<T, T2> fn) {
+            if (m.IsSomething() && m2.IsSomething())
+                fn(m.Value, m2.Value);
+        }
+
         public static void Run<T>(this Maybe<T> m, Action<T> fn) {
-            if (m.IsSomething()) 
+            if (m.IsSomething())
+                fn(m.Value);
+        }
+
+        public static void Run<T>(this Maybe<T> m, Action<T> fn) {
+            if (m.IsSomething())
                 fn(m.Value);
         }
 
@@ -174,7 +189,7 @@ namespace Data.Maybe
 
         public static IEnumerable<TResult> SelectValid<T, TResult>(this IEnumerable<Maybe<T>> maybes, Func<T, TResult> fn) {
             foreach (var maybe in maybes) {
-                if (maybe.HasValue) 
+                if (maybe.HasValue)
                     yield return fn(maybe.Value);
             }
         }
