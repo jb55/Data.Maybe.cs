@@ -162,11 +162,6 @@ namespace Data.Maybe
                 fn(m.Value);
         }
 
-        public static void Run<T>(this Maybe<T> m, Action<T> fn) {
-            if (m.IsSomething())
-                fn(m.Value);
-        }
-
         public static Maybe<T> ToMaybeFromList<T>(this IEnumerable<T> xs) {
             foreach (var x in xs) {
                 return x.ToMaybe();
