@@ -123,7 +123,7 @@ namespace Data.Maybe
             return !a.IsSomething();
         }
 
-        public static Maybe<T2> And<T, T2>(this Maybe<T> a, Maybe<T2> b) {
+        public static Maybe<T2> Compose<T, T2>(this Maybe<T> a, Maybe<T2> b) {
             if (a.IsNothing())
                 return Maybe<T2>.Nothing;
             return b;
