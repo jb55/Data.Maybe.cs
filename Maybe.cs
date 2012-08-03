@@ -67,6 +67,13 @@ namespace Data.Maybe
             return a.HasValue ? fn(a.Value) : @default;
         }
 
+        public static Maybe<B> As<T, B>(this Maybe<T> a) where B : class {
+            return from m in a
+                   let t = m as B
+                   where t != null
+                   select t;
+        }
+
         public static Maybe<T> Cast<T>(this object a) {
             try {
                 var t = (T)a;
