@@ -619,26 +619,29 @@ namespace Data.Maybe
 		#endregion
 
 		#region Misc helpers
+
 		/// <summary>
 		/// Delegate matching usual form of the TryParse methods, such as int.TryParse
 		/// </summary>
 		/// <typeparam name="TR"></typeparam>
-		/// <param name="s"></param>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="key"></param>
 		/// <param name="val"></param>
 		/// <returns></returns>
-		public delegate bool TryParse<TR>(string s, out TR val);
+		public delegate bool TryGet<in T, TR>(T key, out TR val);
 		/// <summary>
-		/// Converts a stardard parser function (like int.TryParse) to a function, returning Maybe
+		/// Converts a stardard tryer function (like int.TryParse, Dictionary.TryGetValue etc.) to a function, returning Maybe
 		/// </summary>
 		/// <typeparam name="TR"></typeparam>
-		/// <param name="parser"></param>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="tryer"></param>
 		/// <returns></returns>
-		public static Func<string, Maybe<TR>> Parser<TR>(TryParse<TR> parser)
+		public static Func<string, Maybe<TR>> Wrap<T, TR>(TryGet<T, TR> tryer)
 		{
 			return s =>
 			{
 				TR result;
-				return parser(s, out result)
+				return tryer(s, out result)
 					? result.ToMaybe()
 					: Maybe<TR>.Nothing;
 			};

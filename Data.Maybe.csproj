@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
+    <None Include="Readme.md" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Maybe.cs" />
