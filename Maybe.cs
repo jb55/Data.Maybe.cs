@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-// ReSharper disable CheckNamespace
-namespace Data.Maybe
+namespace Functional.Maybe
 {
 	/// <summary>
 	/// The option type; explicitly represents nothing-or-thing nature of a value. 
@@ -636,7 +635,7 @@ namespace Data.Maybe
 		/// <typeparam name="T"></typeparam>
 		/// <param name="tryer"></param>
 		/// <returns></returns>
-		public static Func<string, Maybe<TR>> Wrap<T, TR>(TryGet<T, TR> tryer)
+		public static Func<T, Maybe<TR>> Wrap<T, TR>(TryGet<T, TR> tryer)
 		{
 			return s =>
 			{
