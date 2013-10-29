@@ -1,7 +1,7 @@
 
-# Data.Maybe
+# Functional.Maybe
 
-Option types for C# with LINQ support
+Option types for C# with LINQ support and rich fluent syntax for many popular uses
 
 ## Examples
 

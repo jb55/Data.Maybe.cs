@@ -38,6 +38,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Maybe.cs" />
+    <Compile Include="MaybeBoolean.cs" />
+    <Compile Include="MaybeCompositions.cs" />
+    <Compile Include="MaybeConvertions.cs" />
+    <Compile Include="MaybeEnumerable.cs" />
+    <Compile Include="MaybeFunctionalWrappers.cs" />
+    <Compile Include="MaybeLinq.cs" />
+    <Compile Include="MaybeReturns.cs" />
+    <Compile Include="MaybeSideEffects.cs" />
+    <Compile Include="MaybeSomethingNothingHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
