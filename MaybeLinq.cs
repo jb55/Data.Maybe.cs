@@ -20,7 +20,7 @@ namespace Functional.Maybe
 			return a.HasValue ? new Maybe<TResult>(fn(a.Value)) : Maybe<TResult>.Nothing;
 		}
 		/// <summary>
-		/// If <paramref name="a"/> has value, applies <paramref name="fn"/> to it and returns the result as Maybe, otherwise returns <paramref name="else"/>.ToMaybe()
+		/// If <paramref name="a"/> has value, applies <paramref name="fn"/> to it and returns the result, otherwise returns <paramref name="else"/>()
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <typeparam name="TResult"></typeparam>
@@ -28,9 +28,9 @@ namespace Functional.Maybe
 		/// <param name="fn"></param>
 		/// <param name="else"></param>
 		/// <returns></returns>
-		public static Maybe<TResult> SelectOrElse<T, TResult>(this Maybe<T> a, Func<T, TResult> fn, Func<TResult> @else)
+		public static TResult SelectOrElse<T, TResult>(this Maybe<T> a, Func<T, TResult> fn, Func<TResult> @else)
 		{
-			return (a.HasValue ? fn(a.Value) : @else()).ToMaybe();
+			return a.HasValue ? fn(a.Value) : @else();
 		}
 		/// <summary>
 		/// If <paramref name="a"/> has value, and it fulfills the <paramref name="predicate"/>, returns <paramref name="a"/>, otherwise returns Nothing
