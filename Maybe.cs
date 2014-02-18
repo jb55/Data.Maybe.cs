@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Functional.Maybe
 {
@@ -22,7 +23,7 @@ namespace Functional.Maybe
 	/// var result = (from a in list.FirstMaybe() from b in list.LastMaybe() select a + b).OrElse(-5);
 	/// </example>
 	/// <typeparam name="T"></typeparam>
-	public struct Maybe<T> 
+	public struct Maybe<T> : IEquatable<Maybe<T>>
 	{
 		/// <summary>
 		/// Nothing value.
@@ -71,6 +72,35 @@ namespace Functional.Maybe
 		{
 			_value = value;
 			_hasValue = true;
+		}
+
+		public bool Equals(Maybe<T> other)
+		{
+			return EqualityComparer<T>.Default.Equals(_value, other._value) && _hasValue.Equals(other._hasValue);
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj)) return false;
+			return obj is Maybe<T> && Equals((Maybe<T>) obj);
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				return (EqualityComparer<T>.Default.GetHashCode(_value)*397) ^ _hasValue.GetHashCode();
+			}
+		}
+
+		public static bool operator ==(Maybe<T> left, Maybe<T> right)
+		{
+			return left.Equals(right);
+		}
+
+		public static bool operator !=(Maybe<T> left, Maybe<T> right)
+		{
+			return !left.Equals(right);
 		}
 
 		private readonly T _value;
