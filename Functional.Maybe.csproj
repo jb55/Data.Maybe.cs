@@ -46,6 +46,7 @@
     <Compile Include="MaybeBoolean.cs" />
     <Compile Include="MaybeCompositions.cs" />
     <Compile Include="MaybeConvertions.cs" />
+    <Compile Include="MaybeDictionary.cs" />
     <Compile Include="MaybeEnumerable.cs" />
     <Compile Include="MaybeFunctionalWrappers.cs" />
     <Compile Include="MaybeLinq.cs" />
