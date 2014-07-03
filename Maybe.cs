@@ -23,6 +23,7 @@ namespace Functional.Maybe
 	/// var result = (from a in list.FirstMaybe() from b in list.LastMaybe() select a + b).OrElse(-5);
 	/// </example>
 	/// <typeparam name="T"></typeparam>
+	[Serializable]
 	public struct Maybe<T> : IEquatable<Maybe<T>>
 	{
 		/// <summary>
