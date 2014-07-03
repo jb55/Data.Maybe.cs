@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace Functional.Maybe
 {
@@ -65,7 +67,7 @@ namespace Functional.Maybe
 		}
 
 		/// <summary>
-		/// Flattens nested maybes to a flat one
+		/// Collapses nested maybes to a flat one
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="t"></param>
@@ -74,6 +76,44 @@ namespace Functional.Maybe
 		{
 			// using implicit cast
 			return t;
+		}
+
+		/// <summary>
+		/// Flattens a recursive Maybe structure into IEnumerable
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="maybe"></param>
+		/// <param name="parentSelector"></param>
+		/// <example>
+		/// Having { a: 1, parent: { a: 2, parent: { a: 3, parent: Nothing } } } 
+		/// We can flatten it to 
+		/// [
+		///		{ a: 1, parent: { a: 2, parent: { a: 3, parent: Nothing } } }, 
+		///		{ a: 2, parent: { a: 3, parent: Nothing } } , 
+		///		{ a: 3, parent: Nothing } 
+		///	]
+		/// </example>
+		/// <returns></returns>
+		public static IEnumerable<T> Flatten<T>(this Maybe<T> maybe, Func<T, Maybe<T>> parentSelector)
+		{
+			return maybe.FlattenSelect(parentSelector, x => x);
+		}
+
+		private static IEnumerable<TFlatten> FlattenSelect<TMaybe, TFlatten>(this Maybe<TMaybe> maybe, Func<TMaybe, Maybe<TMaybe>> parentSelector, Func<TMaybe, TFlatten> flattenSelector)
+		{
+			return maybe.Flatten(parentSelector, new List<TFlatten>(), flattenSelector);
+		}
+
+		private static IEnumerable<TFlatten> Flatten<TMaybe, TFlatten>(this Maybe<TMaybe> maybe, Func<TMaybe, Maybe<TMaybe>> parentSelector, List<TFlatten> acc, Func<TMaybe, TFlatten> flattenSelector)
+		{
+			while (true)
+			{
+				if (maybe.IsNothing())
+					return acc;
+
+				acc.Add(flattenSelector(maybe.Value));
+				maybe = parentSelector(maybe.Value);
+			}
 		}
 	}
 }
