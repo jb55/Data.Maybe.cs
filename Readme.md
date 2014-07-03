@@ -28,7 +28,7 @@ computation.
 string nullString = null;
 
 nullString.ToMaybe().Do(str => {
-  // str will never be null, ToMaybe guards against them and Run unwraps them
+  // str will never be null, ToMaybe guards against null and Do unwraps the value
 });
 ```
 
