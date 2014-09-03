@@ -29,7 +29,8 @@ namespace Functional.Maybe
 		/// <returns></returns>
 		public static Maybe<T> FirstMaybe<T>(this IEnumerable<T> items, Func<T, bool> predicate)
 		{
-			return items.FirstOrDefault(predicate).ToMaybe();
+			var filtered = items.Where(predicate).ToArray();
+			return filtered.Any().Then(filtered.First);
 		}
 
 		/// <summary>
@@ -52,10 +53,8 @@ namespace Functional.Maybe
 		/// <returns></returns>
 		public static Maybe<T> SingleMaybe<T>(this IEnumerable<T> items, Func<T, bool> predicate)
 		{
-			items = items.ToArray();
-			return (items.Count(predicate) == 1)
-				       ? items.Single(predicate).ToMaybe()
-				       : Maybe<T>.Nothing;
+			var all = items.ToArray();
+			return (all.Count(predicate) == 1).Then(() => all.Single(predicate));
 		}
 
 		/// <summary>
@@ -78,7 +77,8 @@ namespace Functional.Maybe
 		/// <returns></returns>
 		public static Maybe<T> LastMaybe<T>(this IEnumerable<T> items, Func<T, bool> predicate)
 		{
-			return items.LastOrDefault(predicate).ToMaybe();
+			var filtered = items.Where(predicate).ToArray();
+			return filtered.Any().Then(filtered.Last);
 		}
 
 		/// <summary>
