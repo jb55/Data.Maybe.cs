@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Functional.Maybe
 {
@@ -23,7 +24,7 @@ namespace Functional.Maybe
 	/// var result = (from a in list.FirstMaybe() from b in list.LastMaybe() select a + b).OrElse(-5);
 	/// </example>
 	/// <typeparam name="T"></typeparam>
-	[Serializable]
+	[DataContract]
 	public struct Maybe<T> : IEquatable<Maybe<T>>
 	{
 		/// <summary>
