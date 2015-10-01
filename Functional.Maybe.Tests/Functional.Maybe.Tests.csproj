@@ -54,7 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Functional.Maybe\Functional.Maybe.csproj">
+    <ProjectReference Include="..\Functional.Maybe.csproj">
       <Project>{00b0e43d-bedb-4802-8cc2-f37bb9c11907}</Project>
       <Name>Functional.Maybe</Name>
     </ProjectReference>
