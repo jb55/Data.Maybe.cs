@@ -39,6 +39,10 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
+    <None Include="Functional.Maybe.1.0.0.nupkg" />
+    <None Include="Functional.Maybe.1.0.1.nupkg" />
+    <None Include="Functional.Maybe.1.0.2.nupkg" />
+    <None Include="Functional.Maybe.1.0.3.nupkg" />
     <None Include="Readme.md" />
   </ItemGroup>
   <ItemGroup>
