@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Functional.Maybe</id>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <title>Functional.Maybe — Option type for C# with LINQ support and rich fluent syntax for many popular uses</title>
     <authors>Andrey Tsvetkov; original version by William Casarin</authors>
     <owners>Andrey Tsvetkov</owners>
@@ -27,7 +27,7 @@ maybeBoth.Match(
     @else: () => Console.WriteLine("Result is Nothing, as one of the inputs was Nothing")
 );]]>
 	</description>
-    <releaseNotes>Added some tests; also CD test release; no need to update now</releaseNotes>
+    <releaseNotes>Important update: a severe error fixed. WhereValueExists method used to cause a StackOverflow exception.</releaseNotes>
     <copyright>Copyright 2015</copyright>
     <tags> option, maybe, linq, fluent, functional </tags>
   </metadata>
