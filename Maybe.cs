@@ -70,11 +70,6 @@ namespace Functional.Maybe
 			return doubleMaybe.HasValue ? doubleMaybe.Value : Nothing;
 		}
 
-	    public static implicit operator Maybe<T>(T source)
-	    {
-	        return source.ToMaybe();
-	    }
-
 		internal Maybe(T value)
 		{
 			_value = value;
