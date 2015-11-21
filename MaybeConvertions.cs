@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 
 namespace Functional.Maybe
 {
@@ -55,6 +56,8 @@ namespace Functional.Maybe
 		/// <returns></returns>
 		public static Maybe<T> ToMaybeFromList<T>(this IEnumerable<T> xs)
 		{
+			Contract.Requires(xs != null);
+
 			return xs.FirstMaybe();
 		}
 

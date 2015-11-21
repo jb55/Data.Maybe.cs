@@ -5,6 +5,12 @@ Option types for C# with LINQ support and rich fluent syntax for many popular us
 
 ## Examples
 
+All these examples require that you have the following using statement:
+
+```cs
+using Functional.Maybe
+```
+
 ### Computing on maybe types
 
 ```cs
@@ -136,7 +142,7 @@ Here's a function for getting a value out of a dictionary:
 
 ```cs
 public static Maybe<T2> Lookup<T, T2>(this IDictionary<T, T2> d, T key) {
-  var getter = Maybe.Wrap(d.TryGetValue);
+  var getter = MaybeFunctionalWrappers.Wrap(d.TryGetValue);
   return getter(key);
 }
 ```
@@ -144,8 +150,9 @@ public static Maybe<T2> Lookup<T, T2>(this IDictionary<T, T2> d, T key) {
 ### Parsing
 
 ```cs
+
 public static Maybe<int> ParseInt(string s) {
-  var parser = Maybe.Wrap(int.TryParse);
+  var parser = MaybeFunctionalWrappers.Wrap(int.TryParse);
   return parser(s);
 }
 ```

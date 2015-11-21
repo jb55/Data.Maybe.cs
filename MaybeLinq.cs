@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 
 namespace Functional.Maybe
 {
@@ -17,7 +18,18 @@ namespace Functional.Maybe
 		/// <returns></returns>
 		public static Maybe<TResult> Select<T, TResult>(this Maybe<T> a, Func<T, TResult> fn)
 		{
-			return a.HasValue ? new Maybe<TResult>(fn(a.Value)) : Maybe<TResult>.Nothing;
+			Contract.Requires(fn != null);
+
+			if (a.HasValue)
+			{
+				var result = fn(a.Value);
+
+				return result != null
+					? new Maybe<TResult>(result)
+					: Maybe<TResult>.Nothing;
+			}
+			else
+				return Maybe<TResult>.Nothing;
 		}
 		/// <summary>
 		/// If <paramref name="a"/> has value, applies <paramref name="fn"/> to it and returns the result, otherwise returns <paramref name="else"/>()
@@ -30,6 +42,9 @@ namespace Functional.Maybe
 		/// <returns></returns>
 		public static TResult SelectOrElse<T, TResult>(this Maybe<T> a, Func<T, TResult> fn, Func<TResult> @else)
 		{
+			Contract.Requires(fn != null);
+			Contract.Requires(@else != null);
+
 			return a.HasValue ? fn(a.Value) : @else();
 		}
 		/// <summary>
@@ -41,6 +56,8 @@ namespace Functional.Maybe
 		/// <returns></returns>
 		public static Maybe<T> Where<T>(this Maybe<T> a, Func<T, bool> predicate)
 		{
+			Contract.Requires(predicate != null);
+
 			if (!a.HasValue)
 				return a;
 
@@ -59,6 +76,8 @@ namespace Functional.Maybe
 		/// <returns></returns>
 		public static Maybe<TR> SelectMany<T, TR>(this Maybe<T> a, Func<T, Maybe<TR>> fn)
 		{
+			Contract.Requires(fn != null);
+
 			if (!a.HasValue)
 				return Maybe<TR>.Nothing;
 			return fn(a.Value);

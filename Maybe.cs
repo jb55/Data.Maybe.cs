@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Runtime.Serialization;
 
 namespace Functional.Maybe
@@ -70,13 +71,10 @@ namespace Functional.Maybe
 			return doubleMaybe.HasValue ? doubleMaybe.Value : Nothing;
 		}
 
-	    public static implicit operator Maybe<T>(T source)
-	    {
-	        return source.ToMaybe();
-	    }
-
 		internal Maybe(T value)
 		{
+			Contract.Requires(value != null);
+
 			_value = value;
 			_hasValue = true;
 		}

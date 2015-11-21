@@ -45,5 +45,18 @@ namespace Functional.Maybe
 			if (m.HasValue && m.Value)
 				fn();
 		}
+		/// <summary>
+		/// Calls <paramref name="fn"/> if <paramref name="m"/> is true.ToMaybe()
+		/// </summary>
+		/// <param name="m"></param>
+		/// <param name="fn"></param>
+		/// <param name="else"></param>
+		public static void DoWhenTrue(this Maybe<bool> m, Action fn, Action @else)
+		{
+			if (m.HasValue && m.Value)
+				fn();
+			else 
+				@else();
+		}
 	}
 }
