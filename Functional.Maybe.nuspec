@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Functional.Maybe</id>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
     <title>Functional.Maybe — Option type for C# with LINQ support and rich fluent syntax for many popular uses</title>
     <authors>Andrey Tsvetkov; original version by William Casarin</authors>
     <owners>Andrey Tsvetkov</owners>
