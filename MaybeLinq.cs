@@ -82,6 +82,7 @@ namespace Functional.Maybe
 				return Maybe<TR>.Nothing;
 			return fn(a.Value);
 		}
+
 		/// <summary>
 		/// If <paramref name="a"/> has value, applies <paramref name="fn"/> to it, and if the result also has value, calls <paramref name="composer"/> on both values 
 		/// (original and fn-call-resulted), and returns the <paramref name="composer"/>-call result, wrapped in Maybe. Otherwise returns nothing.
@@ -96,6 +97,35 @@ namespace Functional.Maybe
 		public static Maybe<TResult> SelectMany<T, TTempResult, TResult>(this Maybe<T> a, Func<T, Maybe<TTempResult>> fn, Func<T, TTempResult, TResult> composer)
 		{
 			return a.SelectMany(x => fn(x).SelectMany(y => composer(x, y).ToMaybe()));
+		}
+
+		/// <summary>
+		/// If <paramref name="a"/> has value, applies <paramref name="fn"/> to it and returns, otherwise returns Nothing. Alias for SelectMany.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <typeparam name="TR"></typeparam>
+		/// <param name="a"></param>
+		/// <param name="fn"></param>
+		/// <returns></returns>
+		public static Maybe<TR> SelectMaybe<T, TR>(this Maybe<T> a, Func<T, Maybe<TR>> fn)
+		{
+			return a.SelectMany(fn);
+		}
+
+		/// <summary>
+		/// If <paramref name="a"/> has value, applies <paramref name="fn"/> to it, and if the result also has value, calls <paramref name="composer"/> on both values 
+		/// (original and fn-call-resulted), and returns the <paramref name="composer"/>-call result, wrapped in Maybe. Otherwise returns nothing.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <typeparam name="TTempResult"></typeparam>
+		/// <typeparam name="TResult"></typeparam>
+		/// <param name="a"></param>
+		/// <param name="fn"></param>
+		/// <param name="composer"></param>
+		/// <returns></returns>
+		public static Maybe<TResult> SelectMaybe<T, TTempResult, TResult>(this Maybe<T> a, Func<T, Maybe<TTempResult>> fn, Func<T, TTempResult, TResult> composer)
+		{
+			return a.SelectMany(fn, composer);
 		}
 	}
 }
