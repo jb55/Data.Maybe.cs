@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Functional.Maybe</id>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
     <title>Functional.Maybe — Option type for C# with LINQ support and rich fluent syntax for many popular uses</title>
     <authors>Andrey Tsvetkov; original version by William Casarin</authors>
     <owners>Andrey Tsvetkov</owners>
@@ -27,7 +27,7 @@ maybeBoth.Match(
     @else: () => Console.WriteLine("Result is Nothing, as one of the inputs was Nothing")
 );]]>
 	</description>
-    <releaseNotes>An error fixed: it was possible in some case to get a Maybe with HasValue == true and Value == null. Now it is not.</releaseNotes>
+    <releaseNotes>Added SelectMaybe alias for SelectMany.</releaseNotes>
     <copyright>Copyright 2015</copyright>
     <tags> option, maybe, linq, fluent, functional </tags>
   </metadata>
