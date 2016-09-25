@@ -36,18 +36,27 @@ namespace Functional.Maybe
 			return MaybeFunctionalWrappers.Catcher<T, TR, InvalidCastException>(o => (TR)o)(a);
 		}
 
+		[Obsolete("Just use ToEnumerable instead")]
 		/// <summary>
 		/// If <paramref name="a"/>.Value is present, returns a list of that single value, otherwise an empty list
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="a"></param>
 		/// <returns></returns>
-		public static IEnumerable<T> ReturnList<T>(this Maybe<T> a)
+		public static IEnumerable<T> ReturnList<T>(this Maybe<T> a) => a.ToEnumerable();
+		/// <summary>
+		/// If <paramref name="a"/>.Value is present, returns an enumerable of that single value, otherwise an empty one
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="a"></param>
+		/// <returns></returns>
+		public static IEnumerable<T> ToEnumerable<T>(this Maybe<T> a)
 		{
 			if (a.IsSomething())
 				yield return a.Value;
 		}
 
+		[Obsolete("Just use FirstMaybe instead")]
 		/// <summary>
 		/// If <paramref name="xs"/> contains any items, returns first one wrapped as Maybe, elsewhere returns Nothing
 		/// </summary>

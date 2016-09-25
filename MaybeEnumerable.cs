@@ -213,5 +213,43 @@ namespace Functional.Maybe
 			       where b.HasValue && b.Value
 			       select x;
 		}
+
+		/// <summary>
+		/// Combines all exisiting values into single IEnumerable
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="this"></param>
+		/// <param name="others"></param>
+		/// <returns></returns>
+		public static IEnumerable<T> Union<T>(this Maybe<T> @this, params Maybe<T>[] others)
+			=> @this.Union(others.WhereValueExist());
+
+		/// <summary>
+		/// Combines the current value, if exists, with passed IEnumerable
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="this"></param>
+		/// <param name="others"></param>
+		/// <returns></returns>
+		public static IEnumerable<T> Union<T>(this Maybe<T> @this, IEnumerable<T> others)
+		{
+			Contract.Requires(others != null);
+
+			return @this.ToEnumerable().Union(others);
+		}
+
+		/// <summary>
+		/// Combines the current value, if exists, with passed IEnumerable
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="this"></param>
+		/// <param name="others"></param>
+		/// <returns></returns>
+		public static IEnumerable<T> Union<T>(this IEnumerable<T> @these, Maybe<T> other)
+		{
+			Contract.Requires(@these != null);
+
+			return @these.Union(other.ToEnumerable());
+		}
 	}
 }
