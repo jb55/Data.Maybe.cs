@@ -1,9 +1,15 @@
 
-# Data.Maybe
+# Functional.Maybe
 
-Option types for C# with LINQ support
+Option types for C# with LINQ support and rich fluent syntax for many popular uses
 
 ## Examples
+
+All these examples require that you have the following using statement:
+
+```cs
+using Functional.Maybe
+```
 
 ### Computing on maybe types
 
@@ -27,8 +33,8 @@ computation.
 ```cs
 string nullString = null;
 
-nullString.ToMaybe().Run(str => {
-  // str will never be null, ToMaybe guards against them and Run unwraps them
+nullString.ToMaybe().Do(str => {
+  // str will never be null, ToMaybe guards against null and Do unwraps the value
 });
 ```
 
@@ -76,13 +82,13 @@ Sometime you want to pull out a value with a default value in case of `Nothing`:
 
 ```cs
 Maybe<string> possibleString = Maybe<string>.Nothing;
-string goodString = possibleString.FromMaybe("default");
+string goodString = possibleString.OrElse("default");
 ```
 
 The default parameter can also be lazy:
 
 ```cs
-string goodString = possibleString.FromMaybe(() => doHeavyComputationForString());
+string goodString = possibleString.OrElse(() => doHeavyComputationForString());
 ```
 
 Or you can throw an exception instead:
@@ -90,7 +96,7 @@ Or you can throw an exception instead:
 ```cs
 string val = null;
 try {
-  val = (Maybe<string>.Nothing).FromMaybe(() => new Exception("no value"));
+  val = (Maybe<string>.Nothing).OrElse(() => new Exception("no value"));
 } catch (Exception) {
   // exception will be thrown
 }
@@ -99,7 +105,7 @@ try {
 Or, finally, you can just get the default value for that type:
 
 ```cs
-string val = maybeString.FromMaybe();
+string val = maybeString.OrElseDefault();
 ```
 
 ### Why not use Nullable<T> instead?
@@ -136,19 +142,18 @@ Here's a function for getting a value out of a dictionary:
 
 ```cs
 public static Maybe<T2> Lookup<T, T2>(this IDictionary<T, T2> d, T key) {
-  T2 outTest;
-  var has = d.TryGetValue(key, out outTest);
-  if (!has) return Maybe<T2>.Nothing;
-  return outTest.ToMaybe();
+  var getter = MaybeFunctionalWrappers.Wrap(d.TryGetValue);
+  return getter(key);
 }
 ```
 
 ### Parsing
 
 ```cs
+
 public static Maybe<int> ParseInt(string s) {
-  int o;
-  return int.TryParse(s, out o) ? o.ToMaybe() : Maybe<int>.Nothing;
+  var parser = MaybeFunctionalWrappers.Wrap(int.TryParse);
+  return parser(s);
 }
 ```
 
